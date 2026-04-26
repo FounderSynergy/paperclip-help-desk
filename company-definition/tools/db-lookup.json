@@ -1,0 +1,34 @@
+{
+  "name": "db-lookup",
+  "description": "Look up a customer record by email address. Returns subscription plan, account status, and recent billing events.",
+  "type": "http",
+  "endpoint": "${BRIDGE_API_URL}/api/tools/db-lookup",
+  "method": "POST",
+  "auth": "bearer",
+  "schema": {
+    "input": {
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string",
+          "format": "email",
+          "description": "Customer email address to look up"
+        }
+      },
+      "required": ["email"]
+    },
+    "output": {
+      "type": "object",
+      "properties": {
+        "found": { "type": "boolean" },
+        "customerId": { "type": "string" },
+        "plan": { "type": "string", "enum": ["free", "pro", "enterprise"] },
+        "status": { "type": "string", "enum": ["active", "cancelled", "past_due"] },
+        "recentEvents": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      }
+    }
+  }
+}

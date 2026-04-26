@@ -1,0 +1,26 @@
+{
+  "name": "SupportOrg-Alpha",
+  "goal": "Resolve customer support tickets with precision; escalate unresolved issues to a human operator.",
+  "agents": [
+    {
+      "role": "Triage",
+      "promptFile": "agents/triage.md",
+      "adapterType": "http_webhook",
+      "heartbeatIntervalSec": 60
+    },
+    {
+      "role": "Resolver",
+      "promptFile": "agents/resolver.md",
+      "adapterType": "http_webhook",
+      "heartbeatIntervalSec": 120,
+      "tools": ["vector-search"]
+    },
+    {
+      "role": "Manager",
+      "promptFile": "agents/manager.md",
+      "adapterType": "http_webhook",
+      "heartbeatIntervalSec": 300,
+      "tools": ["human-approval"]
+    }
+  ]
+}
